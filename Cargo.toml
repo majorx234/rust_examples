@@ -16,3 +16,7 @@ path = "src/async_webserver/bin/main.rs"
 
 [dependencies]
 futures = "0.3.21"
+
+[dependencies.async-std]
+version = "1.9"
+features = ["attributes"]
