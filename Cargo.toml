@@ -9,6 +9,9 @@ edition = "2018"
 name = "future_world"
 path = "src/future_world/bin/main.rs"
 
+[[bin]]
+name = "async_webserver"
+path = "src/async_webserver/bin/main.rs"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
