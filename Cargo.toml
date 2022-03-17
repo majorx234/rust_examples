@@ -14,6 +14,22 @@ name = "async_webserver"
 path = "src/async_webserver/bin/main.rs"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
+[[bin]]
+name = "iterator_example1"
+path = "src/iterator/bin/example1.rs"
+
+[[bin]]
+name = "iterator_example2"
+path = "src/iterator/bin/example2.rs"
+
+[[bin]]
+name = "iterator_example3"
+path = "src/iterator/bin/example3.rs"
+
+[[bin]]
+name = "iterator_example4"
+path = "src/iterator/bin/example4.rs"
+
 [dependencies]
 futures = "0.3.21"
 
