@@ -17,7 +17,23 @@ fn generate_tree(level: usize) -> Option<Box<Node<i32>>> {
     }
 }
 
+fn print_tree(root: Option<Box<Node<i32>>>, level: usize) {
+    match root {
+        Some(node) => {
+            print_tree(node.left, level + 1);
+            for n in 0..level {
+                print!("  ");
+            }
+            println!("{:?}", node.value);
+            print_tree(node.right, level + 1);
+        }
+        None => {}
+    }
+}
+
 fn main() {
     let tree = generate_tree(3);
-    println!("{:#?}", tree)
+    // println!("}{:#?}", tree)
+    let x = Box::new(69);
+    print_tree(tree, 0);
 }
