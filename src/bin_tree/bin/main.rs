@@ -21,7 +21,7 @@ fn print_tree(root: Option<Box<Node<i32>>>, level: usize) {
     match root {
         Some(node) => {
             print_tree(node.left, level + 1);
-            for n in 0..level {
+            for _ in 0..level {
                 print!("  ");
             }
             println!("{:?}", node.value);
