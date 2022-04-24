@@ -15,6 +15,10 @@ path = "src/async_webserver/bin/main.rs"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [[bin]]
+name = "bin_tree"
+path = "src/bin_tree/bin/main.rs"
+
+[[bin]]
 name = "iterator_example1"
 path = "src/iterator/bin/example1.rs"
 
