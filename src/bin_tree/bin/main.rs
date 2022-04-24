@@ -19,5 +19,5 @@ fn generate_tree(level: usize) -> Option<Box<Node<i32>>> {
 
 fn main() {
     let tree = generate_tree(3);
-    println!("{:?}", tree)
+    println!("{:#?}", tree)
 }
