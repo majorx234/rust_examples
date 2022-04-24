@@ -5,14 +5,15 @@ struct Node<T> {
     right: Option<Box<Node<T>>>,
 }
 
-fn generate_tree(level: usize) -> Option<Box<Node<i32>>> {
+fn generate_tree(level: usize, counter: &mut i32) -> Option<Box<Node<i32>>> {
     if level == 0 {
         return None;
     } else {
+        *counter += 1;
         Some(Box::new(Node {
-            value: level as i32,
-            left: generate_tree(level - 1),
-            right: generate_tree(level - 1),
+            value: *counter as i32,
+            left: generate_tree(level - 1, counter),
+            right: generate_tree(level - 1, counter),
         }))
     }
 }
@@ -32,8 +33,8 @@ fn print_tree(root: Option<Box<Node<i32>>>, level: usize) {
 }
 
 fn main() {
-    let tree = generate_tree(3);
+    let mut counter: i32 = 0;
+    let tree = generate_tree(3, &mut counter);
     // println!("}{:#?}", tree)
-    let x = Box::new(69);
     print_tree(tree, 0);
 }
