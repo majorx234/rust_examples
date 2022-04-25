@@ -18,15 +18,26 @@ fn generate_tree(level: usize, counter: &mut i32) -> Option<Box<Node<i32>>> {
     }
 }
 
-fn print_tree(root: Option<Box<Node<i32>>>, level: usize) {
+fn invert_tree(root: &Option<Box<Node<i32>>>) -> Option<Box<Node<i32>>> {
+    match root {
+        Some(node) => Some(Box::new(Node {
+            value: node.value,
+            left: invert_tree(&node.right),
+            right: invert_tree(&node.left),
+        })),
+        None => None,
+    }
+}
+
+fn print_tree(root: &Option<Box<Node<i32>>>, level: usize) {
     match root {
         Some(node) => {
-            print_tree(node.left, level + 1);
+            print_tree(&node.left, level + 1);
             for _ in 0..level {
                 print!("  ");
             }
             println!("{:?}", node.value);
-            print_tree(node.right, level + 1);
+            print_tree(&node.right, level + 1);
         }
         None => {}
     }
@@ -36,5 +47,7 @@ fn main() {
     let mut counter: i32 = 0;
     let tree = generate_tree(3, &mut counter);
     // println!("}{:#?}", tree)
-    print_tree(tree, 0);
+    print_tree(&tree, 0);
+    let itree = invert_tree(&tree);
+    print_tree(&itree, 0);
 }
