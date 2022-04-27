@@ -4,9 +4,9 @@ pub struct Stack<T> {
 }
 
 impl<T> Stack<T> {
-    fn new(max: usize) -> Self {
+    pub fn new(max: usize) -> Self {
         Stack {
-            items: Vec::new(),
+            items: Vec::with_capacity(max),
             max_size: max,
         }
     }
