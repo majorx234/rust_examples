@@ -1,3 +1,7 @@
+#[macro_use]
+extern crate queues;
+use queues::*;
+
 use stack_lib::Stack;
 
 #[derive(Debug, Default)]
@@ -34,33 +38,33 @@ fn invert_tree(root: &Option<Box<Node<i32>>>) -> Option<Box<Node<i32>>> {
 // WIP
 fn invert_tree_iterative(root: &Option<Box<Node<i32>>>) -> Option<Box<Node<i32>>> {
     let max_size: usize = 32;
-    let mut tree_stack: Stack<&Option<Box<Node<i32>>>> = Stack::new(max_size);
-    let mut new_tree_stack: Stack<&Option<Box<Node<i32>>>> = Stack::new(max_size);
-    tree_stack.push(&root);
+    let mut tree_queue: Buffer<&Option<Box<Node<i32>>>> = Buffer::new(max_size);
+    let mut new_tree_stack: Stack<Box<Node<i32>>> = Stack::new(max_size);
+    tree_queue.add(&root);
     'stack: loop {
-        let element = tree_stack.pop();
+        let element = tree_queue.remove();
         match element {
-            Some(stack_node) => match stack_node {
+            Ok(stack_node) => match stack_node {
                 Some(node) => {
-                    tree_stack.push(&node.right);
-                    tree_stack.push(&node.left);
-                    new_tree_stack.push(Some(Box::new(Node {
+                    tree_queue.add(&node.left);
+                    tree_queue.add(&node.right);
+                    new_tree_stack.push(Box::new(Node {
                         value: node.value,
                         left: None,
                         right: None,
-                    })));
+                    }));
                 }
                 None => {}
             },
-            None => {}
+            Err(_) => {}
         };
-        if tree_stack.is_empty() {
+        if tree_queue.size() == 0 {
             break 'stack;
         }
     }
     let last = new_tree_stack.pop();
     match last {
-        Some(last_node) => *last_node,
+        Some(last_node) => Some(last_node),
         None => None,
     }
 }
