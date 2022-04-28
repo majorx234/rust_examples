@@ -31,6 +31,40 @@ fn invert_tree(root: &Option<Box<Node<i32>>>) -> Option<Box<Node<i32>>> {
     }
 }
 
+// WIP
+fn invert_tree_iterative(root: &Option<Box<Node<i32>>>) -> Option<Box<Node<i32>>> {
+    let max_size: usize = 32;
+    let mut tree_stack: Stack<&Option<Box<Node<i32>>>> = Stack::new(max_size);
+    let mut new_tree_stack: Stack<&Option<Box<Node<i32>>>> = Stack::new(max_size);
+    tree_stack.push(&root);
+    'stack: loop {
+        let element = tree_stack.pop();
+        match element {
+            Some(stack_node) => match stack_node {
+                Some(node) => {
+                    tree_stack.push(&node.right);
+                    tree_stack.push(&node.left);
+                    new_tree_stack.push(Some(Box::new(Node {
+                        value: node.value,
+                        left: None,
+                        right: None,
+                    })));
+                }
+                None => {}
+            },
+            None => {}
+        };
+        if tree_stack.is_empty() {
+            break 'stack;
+        }
+    }
+    let last = new_tree_stack.pop();
+    match last {
+        Some(last_node) => *last_node,
+        None => None,
+    }
+}
+
 fn print_tree(root: &Option<Box<Node<i32>>>, level: usize) {
     match root {
         Some(node) => {
@@ -57,8 +91,8 @@ fn print_tree_iterative(root: &Option<Box<Node<i32>>>, level: usize) {
                 let (stack_node, deep) = stack_elem;
                 match stack_node {
                     Some(node) => {
-                        tree_stack.push((&node.left, deep + 1));
                         tree_stack.push((&node.right, deep + 1));
+                        tree_stack.push((&node.left, deep + 1));
                         node_stack.push((node.value, deep));
                     }
                     None => {
@@ -86,7 +120,7 @@ fn print_tree_iterative(root: &Option<Box<Node<i32>>>, level: usize) {
 
 fn main() {
     let mut counter: i32 = 0;
-    let tree = generate_tree(4, &mut counter);
+    let tree = generate_tree(3, &mut counter);
     // println!("}{:#?}", tree)
     print_tree(&tree, 0);
     let itree = invert_tree(&tree);
