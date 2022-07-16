@@ -37,6 +37,10 @@ path = "src/iterator/bin/example3.rs"
 name = "iterator_example4"
 path = "src/iterator/bin/example4.rs"
 
+[[bin]]
+name = "thread_example"
+path = "src/threads/bin/main.rs"
+
 [dependencies]
 futures = "0.3.21"
 queues = "1.0.2"
