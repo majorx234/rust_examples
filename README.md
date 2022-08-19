@@ -15,3 +15,9 @@ Learning Rust by examples
 
 ## iterator
 - example to use iterators
+
+## threads
+- example show how to spawn a thread with a closure function and use simple IPC through a channel
+
+## closures
+- example uses also threads but shows ways to bound obejcts and further closures to a thread an their thread function
